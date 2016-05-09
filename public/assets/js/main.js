@@ -36,7 +36,6 @@ app.controller('HomeController', function($rootScope, $scope, $http, $cookies){
   $scope.delPost = function(postAborrar){
     $http.put('/posts/remove', {post: postAborrar}, {headers: {'authorization': $rootScope.token}}).then(function(){
       getPosts();
-      Materialize.toast('Entrada eliminada!', 4000)
     });
   };
 

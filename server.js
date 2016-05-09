@@ -49,7 +49,8 @@ app.post('/posts', function(req, res, next){
     var newPost = {
       title: req.body.title,
       text: req.body.text,
-      user: user.username
+      user: user.username,
+      date: Date.now()
     };
     postsCollection.insert(newPost, {w:1}, function(err){
       return res.send();
