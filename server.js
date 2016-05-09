@@ -39,11 +39,17 @@ app.get('/posts', function(req, res, next){
 
 /*Insertar post en mongo*/
 app.post('/posts', function(req, res, next){
+
+  var token = req.headers.authorization;
+  var user = jwt.decode(token, secret);
+
+
   db.collection('posts', function (err, postsCollection){
 
     var newPost = {
       title: req.body.title,
-      text: req.body.text
+      text: req.body.text,
+      user: user.username
     };
     postsCollection.insert(newPost, {w:1}, function(err){
       return res.send();
@@ -103,11 +109,15 @@ app.put('/users/signin', function(req, res, next){
 
 /*borrar posts en mongo*/
 app.put('/posts/remove', function(req, res, next){
+
+  var token = req.headers.authorization;
+  var user = jwt.decode(token, secret);
+
   db.collection('posts', function (err, postsCollection){
 
     var postId = req.body.post._id;
 
-    postsCollection.remove({_id: ObjectId(postId)}, {w:1}, function(err){
+    postsCollection.remove({_id: ObjectId(postId), user: user.username}, {w:1}, function(err){
       return res.send();
     });
 

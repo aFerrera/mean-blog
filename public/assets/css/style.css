@@ -8,6 +8,10 @@ main{
   padding: 10px;
 }
 
+.postHeader{
+  border-bottom: solid 1px black;
+}
+
 .new-post{
   border: solid 1px black;
   margin: 10px;

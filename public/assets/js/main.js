@@ -26,7 +26,7 @@ app.controller('HomeController', function($rootScope, $scope, $http, $cookies){
     $http.post('/posts', {
       title: $scope.newPostTitle,
       text: $scope.newPostText
-    }).then(function(){
+    }, {headers: {'authorization': $rootScope.token}}).then(function(){
       getPosts();
       Materialize.toast('Post añadido!', 4000)
     });
@@ -34,7 +34,7 @@ app.controller('HomeController', function($rootScope, $scope, $http, $cookies){
 
   /*FUNCIÓN DE BORRAR POST*/
   $scope.delPost = function(postAborrar){
-    $http.put('/posts/remove', {post: postAborrar}).then(function(){
+    $http.put('/posts/remove', {post: postAborrar}, {headers: {'authorization': $rootScope.token}}).then(function(){
       getPosts();
       Materialize.toast('Entrada eliminada!', 4000)
     });
@@ -44,7 +44,7 @@ app.controller('HomeController', function($rootScope, $scope, $http, $cookies){
   $scope.signin = function(){
     $http.put('/users/signin', {username: $scope.username, password: $scope.password}).
     then(function(res){
-      console.log(res.data.token);
+
       //save cookies
       $cookies.put('token', res.data.token);
       $cookies.put('currentUser', $scope.username);
@@ -52,7 +52,7 @@ app.controller('HomeController', function($rootScope, $scope, $http, $cookies){
       $rootScope.token = res.data.token;
       $rootScope.currentUser = $scope.username;
     }, function(err){
-      alert('mal!!!!!!!!!!!');
+      alert('Error de credenciales!');
     });
   };
 
