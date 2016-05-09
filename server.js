@@ -5,6 +5,7 @@ var ObjectId = require('mongodb').ObjectId;
 var bodyParser = require('body-parser');
 var bcrypt = require('bcryptjs');
 var jwt = require('jwt-simple');
+var expressValidator = require('express-validator');
 var app = express();
 
 /*contra para jwt*/
@@ -20,7 +21,10 @@ MongoClient.connect("mongodb://localhost:27017/blog", function (err, dbconn){
   }
 });
 
+/*uses, inciar componentes*/
 app.use(bodyParser.json());
+
+app.use(expressValidator());
 
 app.use(express.static('public'));
 
@@ -40,45 +44,65 @@ app.get('/posts', function(req, res, next){
 /*Insertar post en mongo*/
 app.post('/posts', function(req, res, next){
 
-  var token = req.headers.authorization;
-  var user = jwt.decode(token, secret);
+  req.checkBody('titulo', 'Debes introducir un título').notEmpty(); //titulo requerido
+  req.checkBody('texto', 'Debes introducir algo de contenido').notEmpty(); //contenido requerido
+
+  var errors = req.validationErrors();
+  if (errors) {
+    res.json(errors);
+    return;
+  } else {
+
+    var token = req.headers.authorization;
+    var user = jwt.decode(token, secret);
 
 
-  db.collection('posts', function (err, postsCollection){
+    db.collection('posts', function (err, postsCollection){
 
-    var newPost = {
-      title: req.body.title,
-      text: req.body.text,
-      user: user.username,
-      date: Date.now()
-    };
-    postsCollection.insert(newPost, {w:1}, function(err){
-      return res.send();
+      var newPost = {
+        title: req.body.title,
+        text: req.body.text,
+        user: user.username,
+        date: Date.now()
+      };
+      postsCollection.insert(newPost, {w:1}, function(err){
+        return res.send();
+      });
     });
-  });
+  };
 });
 
 
 /*Insertar USUARIO en mongo*/
 app.post('/users', function(req, res, next){
-  db.collection('users', function (err, usersCollection){
+
+  req.checkBody('password', 'Contraseña incorrecta, de 4 a 30 carácteres').len(4, 30); //contraseña valida
+  req.checkBody('password', 'Debes introducir una contraseña').notEmpty(); //contraseña requerida
+  req.checkBody('username', 'Debes introducir un nombre de usuario').notEmpty(); //usuario requerido
+
+  var errors = req.validationErrors();
+  if (errors) {
+    res.json(errors);
+    return;
+  } else {
+    db.collection('users', function (err, usersCollection){
 
 
-    bcrypt.genSalt(10, function(err, salt){
-      bcrypt.hash(req.body.password, salt, function(err, hash){
+      bcrypt.genSalt(10, function(err, salt){
+        bcrypt.hash(req.body.password, salt, function(err, hash){
 
-        var newUser = {
-          username: req.body.username,
-          password: hash
-        };
+          var newUser = {
+            username: req.body.username,
+            password: hash
+          };
 
-        usersCollection.insert(newUser, {w:1}, function(err){
-          return res.send();
+          usersCollection.insert(newUser, {w:1}, function(err){
+            return res.send();
+          });
         });
       });
     });
-
-  });
+  };
 });
 
 
