@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app="blog">
+<head>
+  <meta charset="utf-8">
+  <title>Blog</title>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/style.css" media="screen" title="no title" charset="utf-8">
+  <script type="text/javascript" src="assets/js/angular.min.js"></script>
+  <script type="text/javascript" src="assets/js/angular-route.js"></script>
+  <script type="text/javascript" src="assets/js/angular-cookies.js"></script>
+  <script type="text/javascript" src="assets/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+
+</head>
+<body>
+  <header>
+    <nav class="navbar-material blue lighten-1">
+      <div class="nav-wrapper ">
+
+        <a href="" class="brand-logo">BLOG</a>
+
+        <a href="" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+        <ul id="topMenu" class="right hide-on-med-and-down">
+          <li><a href="/#/">HOME</a></li>
+
+          <li><a href="">Logout</a>
+            <li><a href="">Mi Cuenta</a></li>
+            <li><a href="#/signUp">Registrarse</a></li>
+
+          </li>
+        </ul>
+        <ul class="side-nav " id="mobile-demo">
+          <li><a href="">HOME</a></li>
+
+
+          <li><a href="">Logout</a>
+            <li><a href="">Mi Cuenta</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <div ng-view></div>
+  </body>
+  </html>

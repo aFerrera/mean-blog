@@ -1,0 +1,46 @@
+main{
+  padding: 20px;
+}
+
+.postDiv{
+  border: solid 1px black;
+  margin: 10px;
+  padding: 10px;
+}
+
+.new-post{
+  border: solid 1px black;
+  margin: 10px;
+  padding: 10px;
+
+}
+
+.toDerecha{
+  width: 80%;
+}
+
+.aIzquierda{
+  width: 50%;
+  margin-bottom: 20px;
+  border: solid 1px grey;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.aDerecha{
+  float: right;
+  width: 100%;
+}
+
+nav{
+  padding-left: 20px;
+  padding-right: 80px;
+}
+
+.signUp{
+  width: 70%;
+  margin: 10px auto 10px auto;
+  border: solid 1px grey;
+  padding: 20px;
+  border-radius: 10px;
+}
