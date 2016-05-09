@@ -26,9 +26,19 @@ app.controller('HomeController', function($rootScope, $scope, $http, $cookies){
     $http.post('/posts', {
       title: $scope.newPostTitle,
       text: $scope.newPostText
-    }, {headers: {'authorization': $rootScope.token}}).then(function(){
+    }, {headers: {'authorization': $rootScope.token}}).then(function(res){
+
+      /*validación del formulario*/
+      var aux = res.data;
+
+      $scope.msgs = [];
+
+      for(var i in aux){
+        $scope.msgs.push(aux[i].msg);
+      }
+
       getPosts();
-      Materialize.toast('Post añadido!', 4000)
+      Materialize.toast('Post añadido!', 4000);
     });
   };
 
@@ -50,6 +60,7 @@ app.controller('HomeController', function($rootScope, $scope, $http, $cookies){
 
       $rootScope.token = res.data.token;
       $rootScope.currentUser = $scope.username;
+
     }, function(err){
       alert('Error de credenciales!');
     });
@@ -81,8 +92,17 @@ app.controller('SignUpController', function($scope, $http){
       password: $scope.password
     };
 
-    $http.post('/users', newUser).then(function(){
-      alert('bien echo!');
+    $http.post('/users', newUser).then(function(res){
+
+      var aux = res.data;
+
+      $scope.msgs = [];
+
+      for(var i in aux){
+        $scope.msgs.push(aux[i].msg);
+      }
+
+
     });
   }
 });

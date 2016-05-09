@@ -1,10 +1,18 @@
 <main>
   <div class="signUp">
-    <h2>Registrate al blog!</h2>
+    <h4>Registrate al blog!</h4>
+
+<div class="val-errors" ng-controller="SignUpController">
+
+<p ng-repeat="msg in msgs">
+  {{msg}}
+</p>
+
+</div>
 
     <input type="text" name="user" value="" placeholder="usuario" ng-model="username">
     <input type="password" name="password" value="" placeholder="contraseña" ng-model="password">
-    <button type="button" name="buttonSignup" class="btn waves-effect waves-light blue lighten-1" ng-click="sumbitSignup()">registrarse</button>
+    <button type="button" name="buttonSignup" class="btn waves-effect waves-light orange lighten-2 black-text" ng-click="sumbitSignup()">registrarse</button>
 
   </div>
 
