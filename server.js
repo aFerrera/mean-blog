@@ -29,11 +29,11 @@ app.use(expressValidator());
 app.use(express.static('public'));
 
 
-
+/*buscar posts en mongo*/
 app.get('/posts', function(req, res, next){
 
   db.collection('posts', function (err, postsCollection){
-    postsCollection.find().toArray(function(err, posts){
+    postsCollection.find().sort( { _id: -1 } ).toArray(function(err, posts){
 
       return res.send(posts);
     });
@@ -43,33 +43,33 @@ app.get('/posts', function(req, res, next){
 
 /*Insertar post en mongo*/
 app.post('/posts', function(req, res, next){
-
+  /*
   req.checkBody('titulo', 'Debes introducir un título').notEmpty(); //titulo requerido
   req.checkBody('texto', 'Debes introducir algo de contenido').notEmpty(); //contenido requerido
 
   var errors = req.validationErrors();
   if (errors) {
-    res.json(errors);
-    return;
-  } else {
+  res.json(errors);
+  return;
+} else {
+*/
+var token = req.headers.authorization;
+var user = jwt.decode(token, secret);
 
-    var token = req.headers.authorization;
-    var user = jwt.decode(token, secret);
 
+db.collection('posts', function (err, postsCollection){
 
-    db.collection('posts', function (err, postsCollection){
-
-      var newPost = {
-        title: req.body.title,
-        text: req.body.text,
-        user: user.username,
-        date: Date.now()
-      };
-      postsCollection.insert(newPost, {w:1}, function(err){
-        return res.send();
-      });
-    });
+  var newPost = {
+    title: req.body.title,
+    text: req.body.text,
+    user: user.username,
+    date: Date.now()
   };
+  postsCollection.insert(newPost, {w:1}, function(err){
+    return res.send();
+  });
+});
+
 });
 
 
@@ -97,6 +97,7 @@ app.post('/users', function(req, res, next){
           };
 
           usersCollection.insert(newUser, {w:1}, function(err){
+  
             return res.send();
           });
         });
@@ -108,27 +109,38 @@ app.post('/users', function(req, res, next){
 
 /*COMPROBAR INICIO DE SESIÓN*/
 app.put('/users/signin', function(req, res, next){
-  //conectamos con users en mongo
-  db.collection('users', function (err, usersCollection){
 
-    //buscamos el usuario por el nombre
-    usersCollection.findOne({username: req.body.username},function(err, user){
+  req.checkBody('password', 'Debes introducir una contraseña').notEmpty(); //contraseña requerida
+  req.checkBody('username', 'Debes introducir un nombre de usuario').notEmpty(); //usuario requerido
 
-      //comparamos password encriptada
-      bcrypt.compare(req.body.password, user.password, function(err, result){
+  var errors = req.validationErrors();
+  if (errors) {
+    res.json(errors);
+    return;
+  } else {
 
-        if(result){
-          //success
-          // encode
-          var token = jwt.encode(user, secret);
-          return res.json({token: token});
-        }else{
-          //error
-          return res.status(400).send();
-        }
+    //conectamos con users en mongo
+    db.collection('users', function (err, usersCollection){
+
+      //buscamos el usuario por el nombre
+      usersCollection.findOne({username: req.body.username},function(err, user){
+
+        //comparamos password encriptada
+        bcrypt.compare(req.body.password, user.password, function(err, result){
+
+          if(result){
+            //success
+            // encode
+            var token = jwt.encode(user, secret);
+            return res.json({token: token});
+          }else{
+            //error
+            return res.status(400).send();
+          }
+        });
       });
     });
-  });
+  };
 });
 
 

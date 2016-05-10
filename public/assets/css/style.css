@@ -1,15 +1,18 @@
+body{
+  background-color: #fff3e0;
+}
 main{
   padding: 20px;
 }
 
 .postDiv{
-  border: solid 1px black;
   margin: 10px;
   padding: 10px;
+  border-top: solid 2px #584b4f;
 }
 
 .aDerecha :hover{
-  background-color: #fff3e0 ;
+background-color: #ffcc80;
 }
 
 .postHeader{
@@ -26,6 +29,11 @@ main{
   border: solid 1px black;
   margin: 10px;
   padding: 10px;
+  background-color: white;
+}
+
+.new-post :hover{
+  background-color: white !important;
 }
 
 .centrado{
@@ -43,11 +51,12 @@ main{
 }
 
 .aIzquierda{
-  width: 50%;
+  width: 70%;
   margin-bottom: 20px;
   border: solid 1px grey;
   padding: 20px;
   border-radius: 10px;
+  background-color: white;
 }
 
 .aDerecha{
@@ -60,8 +69,17 @@ nav{
   padding-left: 20px;
   padding-right: 80px;
 }
+
+.side-nav, #mobile-demo{
+  background-color: #584b4f;
+}
+
+.side-nav > ul > li > a :hover{
+  color: #ffb74d ;
+}
+
 nav.navbar-material {
-  background: #584b4f;
+  background-color: #584b4f;
   border: none;
   box-shadow: none;
 }
@@ -88,6 +106,7 @@ nav.navbar-material {
   border: solid 1px grey;
   padding: 20px;
   border-radius: 10px;
+  background-color: white;
 }
 
 
