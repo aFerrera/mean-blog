@@ -109,7 +109,9 @@ nav.navbar-material {
   background-color: white;
 }
 
-
+.pHeader{
+  border-bottom: solid 1px black;
+}
 .val-errors{
   background-color: #ffebee;
   color: red;

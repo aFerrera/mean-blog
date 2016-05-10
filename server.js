@@ -97,7 +97,7 @@ app.post('/users', function(req, res, next){
           };
 
           usersCollection.insert(newUser, {w:1}, function(err){
-  
+
             return res.send();
           });
         });
@@ -161,6 +161,18 @@ app.put('/posts/remove', function(req, res, next){
   });
 });
 
+
+/*buscar post por _id en mongo*/
+app.get('/postsBy', function(req, res, next){
+
+  db.collection('posts', function (err, postsCollection){
+    postsCollection.find().toArray(function(err, posts){
+
+      return res.send(posts);
+    });
+  });
+
+});
 
 app.listen(3000, function(){
   console.log('example app listening on port 3000.');

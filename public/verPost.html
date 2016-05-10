@@ -1,0 +1,18 @@
+<main>
+
+  <div ng-repeat="n in uno" class="">
+
+    <div class="pHeader">
+      <p>Autor: <b>{{n.user}}</b> on <b>{{n.date|date:'MM/dd/yyyy @ h:mma'}}</b></p>
+    </div>
+    <h3>{{n.title}}</h3>
+    <p>{{n.text}}</p>
+    <br><br>
+    <h4>comentarios</h4>
+    {{comentario}}
+    <div class="comentarios">
+      <textarea name="nuevoComment" rows="8" cols="40" ng-model="comentario"></textarea>
+      <button type="button" name="button" class="btn waves-light waves-effect orange lighten-2 black-text">Comentar</button>
+    </div>
+  </div>
+</main>
