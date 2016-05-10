@@ -9,7 +9,11 @@ app.config(function($routeProvider, $locationProvider){
   .when('/signUp', {
     templateUrl: 'signUp.html',
     controller: 'SignUpController'
-  });
+  })
+  .when('/verPost', {
+    templateUrl: 'verPost.html',
+    controller: 'newsController'
+  })
 });
 
 app.run(function($rootScope, $cookies){
@@ -20,6 +24,11 @@ app.run(function($rootScope, $cookies){
 });
 
 app.controller('HomeController', function($rootScope, $scope, $http, $cookies){
+
+  $scope.verPost = function(){
+
+    console.log($scope.idPost);
+  };
 
   /*CREAR POST*/
   $scope.submitNewPost = function(){
@@ -38,7 +47,7 @@ app.controller('HomeController', function($rootScope, $scope, $http, $cookies){
       }
 
       getPosts();
-      Materialize.toast('Post añadido!', 4000);
+
     });
   };
 
@@ -125,13 +134,25 @@ app.controller('SignUpController', function($scope, $http){
 });
 
 /*controlador de noticias*/
-app.controller('newsController', function($scope, $http){
-  post = {
-    id: $scope.idPost,
-    nom: 'joder!'
-  };
-  $scope.verPost = function(){
-    console.log(post.id);
-    console.log(post.nom);
+app.controller('newsController', function($rootScope, $scope, $http){
+
+  $scope.verPost = function(data){
+
+
+    $http.get('/postsBy').then(function(response){
+      //console.log(response);
+
+      var aux = response.data;
+
+      $rootScope.uno = [];
+
+      for(var i in aux){
+
+        if(aux[i]._id == data){
+          $scope.uno.push(aux[i]);
+        }
+
+      }
+    });
   };
 });
