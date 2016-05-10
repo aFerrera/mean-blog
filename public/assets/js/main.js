@@ -51,8 +51,21 @@ app.controller('HomeController', function($rootScope, $scope, $http, $cookies){
 
   /*FUNCIÓN DE INICIO DE SESIÓN*/
   $scope.signin = function(){
+    console.log($scope.username);
     $http.put('/users/signin', {username: $scope.username, password: $scope.password}).
     then(function(res){
+
+      /*Mensages de validación*/
+      var aux = res.data;
+
+      $scope.msgs = [];
+
+      if(aux.length > 0){
+        for(var i in aux){
+          $scope.msgs.push(aux[i].msg);
+        }
+      }
+
 
       //save cookies
       $cookies.put('token', res.data.token);
@@ -85,14 +98,18 @@ app.controller('HomeController', function($rootScope, $scope, $http, $cookies){
 
 });
 
+/*controller de registro de usuario*/
 app.controller('SignUpController', function($scope, $http){
+  /*función de registrar*/
   $scope.sumbitSignup = function(){
+    /*valores a introducir*/
     var newUser = {
       username: $scope.username,
       password: $scope.password
     };
 
-    $http.post('/users', newUser).then(function(res){
+    /*petición al servidor*/
+    $http.post('/users', newUser).then(function(res){ //pasamos el usuario entero como objeto
 
       var aux = res.data;
 
@@ -105,4 +122,16 @@ app.controller('SignUpController', function($scope, $http){
 
     });
   }
+});
+
+/*controlador de noticias*/
+app.controller('newsController', function($scope, $http){
+  post = {
+    id: $scope.idPost,
+    nom: 'joder!'
+  };
+  $scope.verPost = function(){
+    console.log(post.id);
+    console.log(post.nom);
+  };
 });

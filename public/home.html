@@ -1,17 +1,23 @@
 <main>
-
   <div class="aIzquierda center-block center-align" ng-hide="currentUser">
     <p>LOGIN</p>
+    <div class="val-errors" ng-controller="HomeController">
+
+      <p ng-repeat="msg in msgs">
+        {{msg}}
+      </p>
+
+    </div>
     <form action="">
       <div class="form-group">
         <i class="material-icons">&#xE853;</i>
-        <input type="text" name="name" value="" placeholder="usuario" ng-model="username">
+        <input id="inputName" type="text" name="name" value="" placeholder="usuario" ng-model="username">
       </div>
       <div class="form-group">
         <i class="material-icons">&#xE0DA;</i>
-        <input type="password" name="name" value="" placeholder="contraseña" ng-model="password">
+        <input id="inputPass" type="password" name="name" value="" placeholder="contraseña" ng-model="password">
       </div>
-      <button type="button" name="button" class="btn waves-light waves-effect orange lighten-2 black-text" ng-click="signin()">Iniciar sesión</button>
+      <button id="botonLogin" type="button" name="button" class="btn waves-light waves-effect orange lighten-2 black-text" ng-click="signin()">Iniciar sesión</button>
       <span>No tienes cuenta?, <a href="#/signUp">Registrate</a></span>
     </form>
   </div>
@@ -23,9 +29,9 @@
     <div class="new-post" ng-show="currentUser">
       <div class="val-errors" ng-controller="HomeController">
 
-      <p ng-repeat="msg in msgs">
-        {{msg}}
-      </p>
+        <p ng-repeat="msg in msgs">
+          {{msg}}
+        </p>
 
       </div>
       <input ng-model="newPostTitle" type="text" class="form-control" placeholder="Título">
@@ -34,12 +40,19 @@
     </div>
     <h4 class="centrado">ULTIMOS AÑADIDOS</h4>
     <div class="postDiv card" ng-repeat="post in posts">
-      <div class="toDerecha" ng-show="currentUser">
-        <a href ng-click="delPost(post)"><i class="material-icons">&#xE92B;</i></a>
-      </div>
+
       <div class="postHeader"><i class="material-icons">&#xE853;</i>Autor: <b>{{post.user}}</b>, on  <b>{{post.date | date}}</b></div>
       <h3>{{post.title}}</h3>
       <p class="post-text">{{post.text}}</p>
+
+      <div class="form-group" ng-controller="newsController">
+        <input type="hidden" name="idPost" ng-value="post._id" ng-model="idPost">
+        <span>{{post._id}}</span>
+        <a href ng-click="verPost()">Ver post</a>
+      </div>
+      <div class="toDerecha" ng-show="currentUser">
+        <a href ng-click="delPost(post)"><i class="material-icons">&#xE92B;</i></a>
+      </div>
     </div>
   </div>
 </main>
