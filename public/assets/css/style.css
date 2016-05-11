@@ -11,6 +11,20 @@ main{
   border-top: solid 2px #584b4f;
 }
 
+.cajaPost{
+  width: 80%;
+  margin: 10px auto 10px auto;
+}
+
+.cajaComents{
+  border-top: solid 2px #584b4f;
+}
+
+.cajaComents div{
+  padding: 10px;
+
+}
+
 .aDerecha :hover{
 background-color: #ffcc80;
 }
@@ -26,14 +40,29 @@ background-color: #ffcc80;
 }
 
 .new-post{
-  border: solid 1px black;
+  border: solid 1px grey;
   margin: 10px;
   padding: 10px;
   background-color: white;
+  border-radius: 10px;
 }
 
-.new-post :hover{
+.aaa :hover{
   background-color: white !important;
+}
+
+.imgSmall{
+  height: 100px;
+  width: auto;
+}
+
+.imgBig{
+  height: 200px;
+  width: auto;
+}
+
+.postBody{
+  margin-left: 5px;
 }
 
 .centrado{
