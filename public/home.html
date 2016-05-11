@@ -26,38 +26,46 @@
     <a href ng-click="logout()">Cerrar sesión</a>
   </div>
   <div class="aDerecha">
-    <div class="new-post" ng-show="currentUser">
-      <div class="val-errors" ng-controller="HomeController">
+    <div class="aaa">
+      <div class="new-post" ng-show="currentUser">
+        <h4>Nueva entrada:</h4>
+        <div class="val-errors" ng-controller="HomeController">
 
-        <p ng-repeat="msg in msgs">
-          {{msg}}
-        </p>
+          <p ng-repeat="msg in msgs">
+            {{msg}}
+          </p>
 
+        </div>
+        <input ng-model="newPostTitle" type="text" class="form-control" placeholder="Título">
+        <textarea ng-model="newPostText" class="form-control" placeholder="Texto"></textarea>
+        <input ng-model="newImg" type="text" class="form-control" placeholder="imagen">
+        <button type="button" name="nuevo-post" class="btn waves-light waves-effect orange lighten-2 black-text" ng-click="submitNewPost()">Envia</button>
       </div>
-      <input ng-model="newPostTitle" type="text" class="form-control" placeholder="Título">
-      <input ng-model="newPostText" type="text" class="form-control" placeholder="Texto">
-      <button type="button" name="nuevo-post" class="btn waves-light waves-effect orange lighten-2 black-text" ng-click="submitNewPost()">Envia</button>
     </div>
+
     <h4 class="centrado">ULTIMOS AÑADIDOS</h4>
     <div class="postDiv card" ng-repeat="post in posts">
 
       <div class="postHeader"><i class="material-icons">&#xE853;</i>Autor: <b>{{post.user}}</b>, on  <b>{{post.date | date:'MM/dd/yyyy @ h:mma'}}</b></div>
-      <h3>{{post.title}}</h3>
-      <p class="post-text">{{post.text}}</p>
+      <h4 class="center-align">{{post.title}}</h4>
+      <div class="postBody">
+        <img class="imgSmall" ng-src="{{post.image}}" alt="imagen no disponible" />
+        <p class="post-text">{{post.text}}</p>
+      </div>
 
       <div class="form-group" ng-controller="newsController">
-        <a href="#/verPost" ng-click="verPost(post._id)">Ver post</a>
+        <a href="#/verPost" class="tooltipped" ng-click="verPost(post._id)" data-position="bottom" data-delay="50" data-tooltip="Ver el post en una ventana nueva">Ver post</a>
       </div>
       <div class="toDerecha" ng-show="currentUser">
-        <a href ng-click="delPost(post)"><i class="material-icons">&#xE92B;</i></a>
+        <a href ng-click="delPost(post)" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Se borrará el post de forma permanente"><i class="material-icons">&#xE92B;</i></a>
       </div>
       <!--
       FALTA
       1. falta pajinación!!!!!!!!
       2. tooltip de materialize en los botones. (sobretodo en borrado y visualización)
       3. comentarios
-      -->
+    -->
 
-    </div>
   </div>
+</div>
 </main>

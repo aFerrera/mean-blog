@@ -34,7 +34,8 @@ app.controller('HomeController', function($rootScope, $scope, $http, $cookies){
   $scope.submitNewPost = function(){
     $http.post('/posts', {
       title: $scope.newPostTitle,
-      text: $scope.newPostText
+      text: $scope.newPostText,
+      img: $scope.newImg
     }, {headers: {'authorization': $rootScope.token}}).then(function(res){
 
       /*validación del formulario*/
@@ -84,75 +85,95 @@ app.controller('HomeController', function($rootScope, $scope, $http, $cookies){
       $rootScope.currentUser = $scope.username;
 
     }, function(err){
-      alert('Error de credenciales!');
+      alert('Error de credenciales');
     });
-  };
 
-  /*FUNCIÓN DE LOGOUT*/
-  $scope.logout = function(){
-    $cookies.remove('token');
-    $cookies.remove('currentUser');
-
-    $rootScope.token = null;
-    $rootScope.currentUser = null;
-  };
-
-  function getPosts(){
-    $http.get('/posts').then(function(response){
-      $scope.posts = response.data;
-    });
-  }
-
-  getPosts();
-
-});
-
-/*controller de registro de usuario*/
-app.controller('SignUpController', function($scope, $http){
-  /*función de registrar*/
-  $scope.sumbitSignup = function(){
-    /*valores a introducir*/
-    var newUser = {
-      username: $scope.username,
-      password: $scope.password
     };
 
-    /*petición al servidor*/
-    $http.post('/users', newUser).then(function(res){ //pasamos el usuario entero como objeto
+    /*FUNCIÓN DE LOGOUT*/
+    $scope.logout = function(){
+      $cookies.remove('token');
+      $cookies.remove('currentUser');
 
-      var aux = res.data;
+      $rootScope.token = null;
+      $rootScope.currentUser = null;
+    };
 
-      $scope.msgs = [];
+    function getPosts(){
+      $http.get('/posts').then(function(response){
+        $scope.posts = response.data;
+      });
+    }
 
-      for(var i in aux){
-        $scope.msgs.push(aux[i].msg);
-      }
+    getPosts();
 
+  });
 
-    });
-  }
-});
+  /*controller de registro de usuario*/
+  app.controller('SignUpController', function($scope, $http){
+    /*función de registrar*/
+    $scope.sumbitSignup = function(){
+      /*valores a introducir*/
+      var newUser = {
+        username: $scope.username,
+        password: $scope.password
+      };
 
-/*controlador de noticias*/
-app.controller('newsController', function($rootScope, $scope, $http){
+      /*petición al servidor*/
+      $http.post('/users', newUser).then(function(res){ //pasamos el usuario entero como objeto
 
-  $scope.verPost = function(data){
+        var aux = res.data;
 
+        $scope.msgs = [];
 
-    $http.get('/postsBy').then(function(response){
-      //console.log(response);
-
-      var aux = response.data;
-
-      $rootScope.uno = [];
-
-      for(var i in aux){
-
-        if(aux[i]._id == data){
-          $scope.uno.push(aux[i]);
+        for(var i in aux){
+          $scope.msgs.push(aux[i].msg);
         }
 
-      }
-    });
-  };
-});
+
+      });
+
+
+    }
+  });
+
+  /*controlador de noticias*/
+  app.controller('newsController', function($rootScope, $scope, $http, $cookies){
+
+    $scope.verPost = function(data){
+
+
+      $http.get('/postsBy').then(function(response){
+        //console.log(response);
+
+        var aux = response.data;
+
+        $rootScope.uno = [];
+
+        for(var i in aux){
+
+          if(aux[i]._id == data){
+            $scope.uno.push(aux[i]);
+          }
+
+        }
+      });
+
+
+    };
+
+    $scope.comentar = function(post, texto){
+
+      var newComent = {
+        post: post,
+        text: texto,
+        autor: $cookies.get('currentUser')
+      };
+
+
+      $http.post('/coment', newComent).then(function(res){
+
+        $scope.verPost(post);
+      });
+    };
+  });

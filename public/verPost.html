@@ -1,18 +1,35 @@
 <main>
 
-  <div ng-repeat="n in uno" class="">
+  <div ng-repeat="n in uno" class="cajaPost">
 
-    <div class="pHeader">
+    <div class="pHeader center-align">
       <p>Autor: <b>{{n.user}}</b> on <b>{{n.date|date:'MM/dd/yyyy @ h:mma'}}</b></p>
     </div>
-    <h3>{{n.title}}</h3>
-    <p>{{n.text}}</p>
+    <h4 class="center-align">{{n.title}}</h4>
+    <div class="postBody">
+      <img class="imgBig center-align" ng-src="{{n.image}}" alt="imagen no disponible" />
+      <p>{{n.text}}</p>
+    </div>
+
     <br><br>
+    <a href="#/">volver</a>
     <h4>comentarios</h4>
-    {{comentario}}
-    <div class="comentarios">
-      <textarea name="nuevoComment" rows="8" cols="40" ng-model="comentario"></textarea>
-      <button type="button" name="button" class="btn waves-light waves-effect orange lighten-2 black-text">Comentar</button>
+    <div class="aDerecha cajaComents">
+      <div class="card" ng-repeat="i in n.comentarios">
+        <div class="postHeader"><i class="material-icons">&#xE853;</i>Autor: <b>{{i.autor}}</b>, on  <b>{{i.date | date:'MM/dd/yyyy @ h:mma'}}</b></div>
+
+        <p>{{i.texto}}</p>
+      </div>
+    </div>
+
+
+    <div class="comentarios" ng-show="currentUser">
+      <textarea name="nuevoComment" rows="8" cols="40" ng-model="comentario" placeholder="Escribe algo..."></textarea>
+      <button type="button" name="button" class="btn waves-light waves-effect orange lighten-2 black-text" ng-click="comentar(n._id, comentario)">Comentar</button>
+    </div>
+
+    <div ng-hide="currentUser">
+      <p><a href="#/">Inicia sesión</a> para poder comentar los posts.</p>
     </div>
   </div>
 </main>

@@ -63,7 +63,9 @@ db.collection('posts', function (err, postsCollection){
     title: req.body.title,
     text: req.body.text,
     user: user.username,
-    date: Date.now()
+    date: Date.now(),
+    image: req.body.img,
+    comentarios: []
   };
   postsCollection.insert(newPost, {w:1}, function(err){
     return res.send();
@@ -125,21 +127,23 @@ app.put('/users/signin', function(req, res, next){
       //buscamos el usuario por el nombre
       usersCollection.findOne({username: req.body.username},function(err, user){
 
-        //comparamos password encriptada
-        bcrypt.compare(req.body.password, user.password, function(err, result){
 
-          if(result){
-            //success
-            // encode
-            var token = jwt.encode(user, secret);
-            return res.json({token: token});
-          }else{
-            //error
-            return res.status(400).send();
-          }
-        });
+          //comparamos password encriptada
+          bcrypt.compare(req.body.password, user.password, function(err, result){
+
+            if(result){
+              //success
+              // encode
+              var token = jwt.encode(user, secret);
+              return res.json({token: token});
+            }else{
+              //error
+              return res.send();
+            }
+          });
       });
     });
+
   };
 });
 
@@ -172,6 +176,20 @@ app.get('/postsBy', function(req, res, next){
     });
   });
 
+});
+
+app.post('/coment', function(req, res, next){
+
+
+  var postId = req.body.post;
+  var comentario = req.body.text;
+  var usuario = req.body.autor;
+  var fecha = Date.now();
+  db.collection('posts', function(err, postsCollection){
+    postsCollection.update({_id: ObjectId(postId)}, {$push:{comentarios:{texto:comentario, autor: usuario, date: fecha}}}, function(err){
+      res.send();
+    });
+  });
 });
 
 app.listen(3000, function(){
