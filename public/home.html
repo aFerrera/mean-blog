@@ -38,13 +38,14 @@
         </div>
         <input ng-model="newPostTitle" type="text" class="form-control" placeholder="Título">
         <textarea ng-model="newPostText" class="form-control" placeholder="Texto"></textarea>
-        <input ng-model="newImg" type="text" class="form-control" placeholder="imagen">
+        <input ng-model="newImg" type="text" class="form-control" placeholder="URL imagen">
         <button type="button" name="nuevo-post" class="btn waves-light waves-effect orange lighten-2 black-text" ng-click="submitNewPost()">Envia</button>
       </div>
     </div>
 
     <h4 class="centrado">ULTIMOS AÑADIDOS</h4>
-    <div class="postDiv card" ng-repeat="post in posts">
+    <p class="buscar"><i class="material-icons">search</i><input type="search" ng-model="search" placeholder="Search..."></p>
+    <div class="postDiv card" ng-repeat="post in posts | filter:search">
 
       <div class="postHeader"><i class="material-icons">&#xE853;</i>Autor: <b>{{post.user}}</b>, on  <b>{{post.date | date:'MM/dd/yyyy @ h:mma'}}</b></div>
       <h4 class="center-align">{{post.title}}</h4>
@@ -63,7 +64,6 @@
       FALTA
       1. falta pajinación!!!!!!!!
       2. tooltip de materialize en los botones. (sobretodo en borrado y visualización)
-      3. comentarios
     -->
 
   </div>

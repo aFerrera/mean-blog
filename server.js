@@ -43,16 +43,7 @@ app.get('/posts', function(req, res, next){
 
 /*Insertar post en mongo*/
 app.post('/posts', function(req, res, next){
-  /*
-  req.checkBody('titulo', 'Debes introducir un título').notEmpty(); //titulo requerido
-  req.checkBody('texto', 'Debes introducir algo de contenido').notEmpty(); //contenido requerido
 
-  var errors = req.validationErrors();
-  if (errors) {
-  res.json(errors);
-  return;
-} else {
-*/
 var token = req.headers.authorization;
 var user = jwt.decode(token, secret);
 

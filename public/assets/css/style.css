@@ -1,34 +1,125 @@
+/*ALTURA HTML*/
+html{
+  height: 100%;
+}
+/*Set background for body*/
 body{
   background-color: #fff3e0;
-}
-main{
-  padding: 20px;
+  height: 100%;
 }
 
+/*------------------HEADER, CABECERA--------------------*/
+
+/*-----NAVBAR------*/
+nav{
+  padding-left: 20px;
+  padding-right: 80px;
+}
+nav.navbar-material {
+  background-color: #584b4f;
+  border: none;
+  box-shadow: none;
+}
+.navbar-material .nav-wrapper {
+  background: #584b4f;
+}
+.nav-wrapper a{
+  color: #ffb74d;
+}
+.navbar-material .nav-wrapper > ul > li > a {
+  color: white;
+}
+.navbar-material .nav-wrapper > ul > li > a :hover{
+  color: #ffb74d ;
+}
+#topMenu li :hover{
+  color: #ffb74d ;
+}
+
+/*-------MOBILE-NAVBAR--------*/
+.side-nav, #mobile-demo{
+  background-color: #584b4f;
+}
+
+.side-nav > ul > li > a :hover{
+  color: #ffb74d ;
+}
+
+
+/*------------------MAIN, CONTENIDO--------------------*/
+
+main{
+  padding: 20px;
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -4em;
+}
+
+/*-------ERRORES DE VALIDACIÓN--------*/
+.val-errors{
+  background-color: #ffebee;
+  color: red;
+  border-radius: 5px;
+}
+
+.val-errors p{
+  margin-left: 5px;
+}
+
+/*CENTRAR CONTENIDOS*/
+.centrado{
+  text-align: center;
+  margin: 10px auto 10px auto;
+}
+
+/*----------LOGIN----------*/
+.aIzquierda{ /*LOGIN BOX*/
+  width: 70%;
+  margin-bottom: 20px;
+  border: solid 1px grey;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.micuenta{
+  margin: 10px auto 10px auto;
+  text-align: center;
+}
+
+.toDerecha{
+  width: 70%;
+}
+
+.aDerecha{
+  float: right;
+  width: 100%;
+}
+
+/*--------REGISTRO USUARIOS---------*/
+.signUp{
+  width: 70%;
+  margin: 10px auto 10px auto;
+  border: solid 1px grey;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: white;
+}
+
+
+/*---------POSTS, NOTICIAS---------*/
 .postDiv{
   margin: 10px;
   padding: 10px;
   border-top: solid 2px #584b4f;
 }
-
+/*CONTENEDRO POSTS*/
 .cajaPost{
   width: 80%;
   margin: 10px auto 10px auto;
 }
-
-.cajaComents{
-  border-top: solid 2px #584b4f;
-}
-
-.cajaComents div{
-  padding: 10px;
-
-}
-
-.aDerecha :hover{
-background-color: #ffcc80;
-}
-
+/*CABECERA POSTS*/
 .postHeader{
   border-bottom: solid 1px black;
 
@@ -37,18 +128,6 @@ background-color: #ffcc80;
 
 .post-text{
   margin-left: 10px;
-}
-
-.new-post{
-  border: solid 1px grey;
-  margin: 10px;
-  padding: 10px;
-  background-color: white;
-  border-radius: 10px;
-}
-
-.aaa :hover{
-  background-color: white !important;
 }
 
 .imgSmall{
@@ -65,88 +144,65 @@ background-color: #ffcc80;
   margin-left: 5px;
 }
 
-.centrado{
-  text-align: center;
-  margin: 10px auto 10px auto;
-}
-
-.micuenta{
-  margin: 10px auto 10px auto;
-  text-align: center;
-}
-
-.toDerecha{
-  width: 70%;
-}
-
-.aIzquierda{
-  width: 70%;
-  margin-bottom: 20px;
-  border: solid 1px grey;
-  padding: 20px;
-  border-radius: 10px;
-  background-color: white;
-}
-
-.aDerecha{
-  float: right;
-  width: 100%;
-}
-
-/*NAVBAR*/
-nav{
-  padding-left: 20px;
-  padding-right: 80px;
-}
-
-.side-nav, #mobile-demo{
-  background-color: #584b4f;
-}
-
-.side-nav > ul > li > a :hover{
-  color: #ffb74d ;
-}
-
-nav.navbar-material {
-  background-color: #584b4f;
-  border: none;
-  box-shadow: none;
-}
-.navbar-material .nav-wrapper {
-  background: #584b4f;
-}
-
-.nav-wrapper a{
-  color: #ffb74d;
-}
-.navbar-material .nav-wrapper > ul > li > a {
-  color: white;
-}
-.navbar-material .nav-wrapper > ul > li > a :hover{
-  color: #ffb74d ;
-}
-#topMenu li :hover{
-  color: #ffb74d ;
-}
-
-.signUp{
-  width: 70%;
-  margin: 10px auto 10px auto;
-  border: solid 1px grey;
-  padding: 20px;
-  border-radius: 10px;
-  background-color: white;
-}
-
 .pHeader{
   border-bottom: solid 1px black;
 }
-.val-errors{
-  background-color: #ffebee;
-  color: red;
-  border-radius: 5px;
+
+/*------NUEVO POST------*/
+.new-post{
+  border: solid 1px grey;
+  margin: 10px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 10px;
 }
 
-.val-errors p{
-  margin-left: 5px;
+/*---------COMENTARIOS------------*/
+.cajaComents{
+  border-top: solid 2px #584b4f;
+}
+
+.cajaComents div{
+  padding: 10px;
+
+}
+
+.aDerecha :hover{
+  background-color: #ffcc80;
+}
+
+
+/*----------BUSQUEDA POSTS----------*/
+.aaa :hover{
+  background-color: white !important;
+}
+
+.buscar{
+  padding: 5px;
+}
+
+.buscar :hover{
+  background-color: #fff3e0 !important;
+}
+
+
+/*----------------------FOOTER, PIÉ-------------------------*/
+
+footer div{
+  height: 35px;
+  background-color: #584b4f;
+  margin-top: 10px;
+  color: white;
+  text-align: center;
+}
+
+footer{
+  position: relative;
+  bottom: 0px;
+  width: 100%;
+}
+
+.flexigrid{
+  margin: 10px auto 10px auto;
+  width: 80% !important;
 }

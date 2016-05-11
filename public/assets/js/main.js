@@ -99,6 +99,17 @@ app.controller('HomeController', function($rootScope, $scope, $http, $cookies){
       $rootScope.currentUser = null;
     };
 
+    /*busqueda*/
+    function escapeRegExp(string){
+      return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+    }
+
+    $scope.filterBySearch = function(name) {
+      if (!$scope.search) return true;
+      var regex = new RegExp('\\b' + escapeRegExp($scope.search), 'i');
+      return regex.test(name);
+    };
+
     function getPosts(){
       $http.get('/posts').then(function(response){
         $scope.posts = response.data;
@@ -133,7 +144,7 @@ app.controller('HomeController', function($rootScope, $scope, $http, $cookies){
 
       });
 
-
+      alert('echo!');
     }
   });
 
